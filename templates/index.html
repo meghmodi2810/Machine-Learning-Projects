@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TouchAware - Web Interface</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TouchAware: Good Touch vs Bad Touch Detection</h1>
+    </header>
+
+    <main>
+      <section class="video-section">
+        <h2>Live Detection Feed</h2>
+        <div class="video-container">
+          <img id="videoFeed" src="/video_feed" alt="Video Feed">
+        </div>
+        <p id="statusMsg">Status: Ready</p>
+        <p id="fpsDisplay">FPS: 0</p>
+      </section>
+
+      <section class="controls">
+        <div class="group">
+          <h3>Input Source</h3>
+          <button class="btn" onclick="sendCommand('start_webcam')">Start Webcam</button>
+          <input type="file" id="fileUpload" accept="video/*" onchange="uploadVideo(this.files[0])">
+        </div>
+
+        <div class="group">
+          <h3>Detection Settings</h3>
+          <label for="sensitivity">Sensitivity:</label>
+          <input type="range" id="sensitivity" min="10" max="100" value="50" onchange="updateSensitivity(this.value)">
+          <label>
+            <input type="checkbox" id="privacyBlur" checked onchange="togglePrivacyBlur(this.checked)">
+            Privacy Blur
+          </label>
+        </div>
+
+        <div class="group">
+          <h3>Machine Learning</h3>
+          <button class="btn" onclick="sendCommand('enable_training')">Enable Training Mode</button>
+          <button class="btn" onclick="sendCommand('save_safe')">Save Safe Sample</button>
+          <button class="btn" onclick="sendCommand('save_unsafe')">Save Unsafe Sample</button>
+          <button class="btn" onclick="sendCommand('train_model')">Train Model</button>
+          <p id="trainingProgress">Samples: 0/200</p>
+        </div>
+
+        <div class="group">
+          <h3>Emergency</h3>
+          <button class="btn emergency" onclick="sendCommand('trigger_alert')">Trigger Emergency Alert</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
